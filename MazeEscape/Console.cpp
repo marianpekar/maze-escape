@@ -12,6 +12,12 @@ void Console::Write(const char& ch)
     std::cout << ch;
 }
 
+void Console::MoveCursor(const short x, const short y) const
+{
+    COORD coord{x, y};
+    SetConsoleCursorPosition(hConsole, coord);
+}
+
 void Console::Write(const char& ch, const FontColor color) const
 {
     SetConsoleTextAttribute(hConsole, color);

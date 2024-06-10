@@ -24,5 +24,5 @@ public:
     Maze(size_t w, size_t h);
     bool IsOpen(const size_t x, const size_t y) const { return data[x + y * width] == 0; }
     const int& At(const size_t x, const size_t y) const { return data[x + y * width]; }
-    
+    void Draw(const class Console& console) const;
 };

@@ -28,6 +28,7 @@ public:
     HANDLE hConsole;
     Console();
     static void Write(const char& ch);
+    void MoveCursor(short x, short y) const;
     void Write(const char& ch, FontColor color) const;
     static void Clear();
 };

@@ -1,6 +1,6 @@
 ﻿#include "Maze.h"
+#include "Console.h"
 
-#include <random>
 #include <stack>
 
 Maze::Maze(const size_t w, const size_t h) : data(std::vector(w * h, 1)), width(w), height(h)
@@ -42,5 +42,18 @@ void Maze::Generate(size_t x, size_t y)
                 stack.emplace(nx, ny);
             }
         }
+    }
+}
+
+void Maze::Draw(const Console& console) const
+{
+    console.MoveCursor(0,0);
+    for(size_t x = 0; x < width - 1; x++)
+    {
+        for(size_t y = 0; y < height - 1; y++)
+        {
+            console.Write(At(x, y) == 1 ? '$' : ' ', Yellow);
+        }
+        Console::Write('\n');
     }
 }
