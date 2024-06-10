@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include <windows.h>
-#include <string>
 
 enum FontColor
 {
@@ -28,7 +27,7 @@ class Console
 public:
     HANDLE hConsole;
     Console();
-    static void Write(const std::string& str);
-    void Write(const std::string& str, FontColor color) const;
-    void Write(int32_t x, int32_t y, const std::string& str);
+    static void Write(const char& ch);
+    void Write(const char& ch, FontColor color) const;
+    static void Clear();
 };
