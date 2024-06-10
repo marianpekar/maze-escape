@@ -25,10 +25,12 @@ enum FontColor
 class Console
 {
 public:
-    HANDLE hConsole;
+    HANDLE hOut;
+    HANDLE hIn;
     Console();
     static void Write(const char& ch);
     void MoveCursor(short x, short y) const;
     void Write(const char& ch, FontColor color) const;
+    int GetKey() const;
     static void Clear();
 };

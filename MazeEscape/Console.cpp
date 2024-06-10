@@ -4,7 +4,8 @@
 
 Console::Console()
 {
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    hIn = GetStdHandle(STD_INPUT_HANDLE);
 }
 
 void Console::Write(const char& ch)
@@ -15,18 +16,33 @@ void Console::Write(const char& ch)
 void Console::MoveCursor(const short x, const short y) const
 {
     COORD coord{x, y};
-    SetConsoleCursorPosition(hConsole, coord);
+    SetConsoleCursorPosition(hOut, coord);
 }
 
 void Console::Write(const char& ch, const FontColor color) const
 {
-    SetConsoleTextAttribute(hConsole, color);
+    SetConsoleTextAttribute(hOut, color);
     std::cout << ch;
-    SetConsoleTextAttribute(hConsole, White);
+    SetConsoleTextAttribute(hOut, White);
+}
+
+int Console::GetKey() const
+{
+    INPUT_RECORD InputRecord;
+    DWORD Events;
+
+    while (true)
+    {
+        ReadConsoleInput(hIn, &InputRecord, 1, &Events);
+
+        if (InputRecord.EventType == KEY_EVENT && InputRecord.Event.KeyEvent.bKeyDown)
+        {
+            return InputRecord.Event.KeyEvent.uChar.AsciiChar;
+        }
+    }
 }
 
 void Console::Clear()
 {
     system("cls");
 }
-

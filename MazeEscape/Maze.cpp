@@ -32,10 +32,10 @@ void Maze::Generate(size_t x, size_t y)
             int nx = x + dx[directions[i]] * 2;
             int ny = y + dy[directions[i]] * 2;
 
-            if (nx <= 0 || nx >= width - 1 || ny <= 0 || ny >= height - 1)
+            if (nx <= 0 || nx >= height - 1 || ny <= 0 || ny >= width - 1)
                 continue;
 
-            if (data[nx + ny * width] != 0)
+            if (data[nx + ny * height] != 0)
             {
                 Open((nx + x) / 2, (ny + y) / 2);
                 Open(nx, ny);
@@ -48,9 +48,9 @@ void Maze::Generate(size_t x, size_t y)
 void Maze::Draw(const Console& console) const
 {
     console.MoveCursor(0,0);
-    for(size_t x = 0; x < width - 1; x++)
+    for(size_t x = 0; x < height - 1; x++)
     {
-        for(size_t y = 0; y < height - 1; y++)
+        for(size_t y = 0; y < width - 1; y++)
         {
             console.Write(At(x, y) == 1 ? '$' : ' ', Yellow);
         }

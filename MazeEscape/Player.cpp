@@ -6,8 +6,8 @@ void Player::Move(const short x, const short y)
 {
     px = this->x;
     py = this->y;
-    this->x += x;
-    this->y += y;
+    this->x = x;
+    this->y = y;
 }
 
 void Player::Draw(const Console& console) const
