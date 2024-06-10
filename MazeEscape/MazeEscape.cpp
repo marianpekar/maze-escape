@@ -6,21 +6,29 @@
 
 int main(int argc, char* argv[])
 {
-    size_t width = 16;
-    size_t height = 32;
+    size_t width = 24;
+    size_t height = 48;
     
     Console console;
-    
-    Maze maze(width,height);
 
-    for(size_t x = 0; x < width - 1; x++)
+    while (true)
     {
-        for(size_t y = 0; y < height - 1; y++)
+        Maze maze(width,height);
+    
+        for(size_t x = 0; x < width - 1; x++)
         {
-            console.Write(maze.At(x, y) == 1 ? '#' : ' ', Yellow);
+            for(size_t y = 0; y < height - 1; y++)
+            {
+                console.Write(maze.At(x, y) == 1 ? '$' : ' ', Yellow);
+            }
+            console.Write('\n');
         }
         console.Write('\n');
+
+        std::cin.get(); 
+        console.Clear();
     }
-    
+
     return 0;
+
 }
