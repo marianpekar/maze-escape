@@ -8,6 +8,8 @@ Maze::Maze(const size_t w, const size_t h) : data(std::vector(w * h, 1)), width(
     Generate(1, 1);
 }
 
+
+
 void Maze::Generate(size_t x, size_t y)
 {
     using Point = std::pair<int, int>;
@@ -43,6 +45,19 @@ void Maze::Generate(size_t x, size_t y)
             }
         }
     }
+
+    PlaceExit();
+}
+
+void Maze::PlaceExit()
+{
+    size_t ex = height - 3;
+    size_t ey = width / 2;
+    while (!IsOpen(ex, ey))
+    {
+        ey += 1;
+    }
+    Open(ex + 1, ey);
 }
 
 void Maze::Draw(const Console& console) const

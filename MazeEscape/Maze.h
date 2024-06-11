@@ -22,6 +22,7 @@ class Maze
     void Generate(size_t x, size_t y);
 public:
     Maze(size_t w, size_t h);
+    void PlaceExit();
     bool IsOpen(const size_t x, const size_t y) const { return data[x + y * height] == 0; }
     const int& At(const size_t x, const size_t y) const { return data[x + y * height]; }
     void Draw(const class Console& console) const;
