@@ -3,6 +3,7 @@
 #include "Console.h"
 #include "Maze.h"
 #include "Actor.h"
+#include "PlayerController.h"
 
 int main(int argc, char* argv[])
 {
@@ -17,39 +18,10 @@ int main(int argc, char* argv[])
     Actor player(1, 1, '@');
     player.Draw(console);
 
-    short nx = player.GetX();
-    short ny = player.GetY();
     while (true)
     {
-        switch (console.GetKey())
-        {
-        case 119:
-            ny--;
-            break;
-        case 115:
-            ny++;
-            break;
-        case 97:
-            nx--;
-            break;
-        case 100:
-            nx++;
-            break;
-        }
-
-        if (maze.IsOpen(ny, nx))
-        {
-            player.Move(nx,ny);
-            player.Draw(console);
-        }
-        else
-        {
-            nx = player.GetX();
-            ny = player.GetY();
-        }
+        PlayerController::GetInput(console, player, maze);    
+        player.Draw(console);
     }
-
-    std::cin.get();
-
-    return 0;
+    
 }
