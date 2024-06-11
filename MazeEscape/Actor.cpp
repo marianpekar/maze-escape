@@ -1,8 +1,9 @@
-﻿#include "Player.h"
+﻿#include "Actor.h"
 
 #include "Console.h"
 
-void Player::Move(const short x, const short y)
+
+void Actor::Move(const short x, const short y)
 {
     px = this->x;
     py = this->y;
@@ -10,10 +11,10 @@ void Player::Move(const short x, const short y)
     this->y = y;
 }
 
-void Player::Draw(const Console& console) const
+void Actor::Draw(const Console& console) const
 {
     console.MoveCursor(px, py);
     Console::Write(' ');
     console.MoveCursor(x, y);
-    console.Write('@', Blue);
+    console.Write(avatar, Blue);
 }

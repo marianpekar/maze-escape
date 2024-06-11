@@ -1,11 +1,12 @@
 ﻿#pragma once
 
-class Player
+class Actor
 {
     short x, y;
     short px, py;
+    char avatar;
 public:
-    Player(short x, short y) : x(x), y(y), px(x), py(y) {}
+    Actor(short x, short y, char avatar) : x(x), y(y), px(x), py(y), avatar(avatar) {}
     const short& GetX() const { return x; }
     const short& GetY() const { return y; }
     void Move(short x, short y);

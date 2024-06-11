@@ -2,11 +2,11 @@
 
 #include "Console.h"
 #include "Maze.h"
-#include "Player.h"
+#include "Actor.h"
 
 int main(int argc, char* argv[])
 {
-    size_t width = 48;
+    size_t width = 64;
     size_t height = 24;
 
     Console console;
@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
     Maze maze(width, height);
     maze.Draw(console);
 
-    Player player(1, 1);
+    Actor player(1, 1, '@');
     player.Draw(console);
 
     short nx = player.GetX();
