@@ -8,6 +8,9 @@
 
 void AgentController::Move(const int& tx, const int& ty, Actor& actor, const Maze& maze)
 {
+    if (actor.GetX() == tx && actor.GetY() == ty)
+        return;
+    
     const int& sx = actor.GetX();
     const int& sy = actor.GetY();
 
