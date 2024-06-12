@@ -19,14 +19,14 @@ int main(int argc, char* argv[])
 
     Actor baba(width - 3, 1, 'B', Red);
     baba.Draw(console);
-    
+
+    int i = 0;
     while (true)
     {
         PlayerController::GetInput(console, player, maze);    
         player.Draw(console);
-
+        
         AgentController::Move(player.GetX(), player.GetY(), baba, maze);
         baba.Draw(console);
     }
-    
 }
