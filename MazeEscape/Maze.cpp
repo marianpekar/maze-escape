@@ -8,6 +8,23 @@ Maze::Maze(const int w, const int h) : data(std::vector(w * h, 1)), width(w), he
     Generate(1, 1);
 }
 
+void Maze::OpenRandom()
+{
+    static std::uniform_int_distribution dx(6, height - 6);
+    static std::uniform_int_distribution dy(6, width - 6);
+
+    for (int i = 0; i < 15; i++)
+    {
+        int rx = dx(gen);
+        int ry = dy(gen);
+        while (IsOpen(rx, ry))
+        {
+            rx -= 1;
+        }
+        Open(rx, ry);
+    }
+}
+
 void Maze::Generate(const int& x, const int& y)
 {
     using Point = std::pair<int, int>;
@@ -44,6 +61,7 @@ void Maze::Generate(const int& x, const int& y)
         }
     }
 
+    OpenRandom();
     PlaceExit();
 }
 
@@ -65,7 +83,7 @@ void Maze::Draw(const Console& console) const
     {
         for (int y = 0; y < width - 1; y++)
         {
-            console.Write(At(x, y) == 1 ? '$' : ' ', Yellow);
+            console.Write(At(x, y) == 1 ? '#' : ' ', Yellow);
         }
         Console::Write('\n');
     }

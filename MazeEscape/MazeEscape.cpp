@@ -6,8 +6,8 @@
 
 int main(int argc, char* argv[])
 {
-    int width = 32;
-    int height = 16;
+    int width = 64;
+    int height = 24;
 
     Console console;
 
@@ -20,7 +20,6 @@ int main(int argc, char* argv[])
     Actor baba(width - 3, 1, 'B', Red);
     baba.Draw(console);
 
-    int i = 0;
     while (true)
     {
         PlayerController::GetInput(console, player, maze);    
