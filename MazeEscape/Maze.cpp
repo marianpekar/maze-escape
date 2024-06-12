@@ -3,14 +3,12 @@
 
 #include <stack>
 
-Maze::Maze(const size_t w, const size_t h) : data(std::vector(w * h, 1)), width(w), height(h)
+Maze::Maze(const int w, const int h) : data(std::vector(w * h, 1)), width(w), height(h)
 {
     Generate(1, 1);
 }
 
-
-
-void Maze::Generate(size_t x, size_t y)
+void Maze::Generate(const int& x, const int& y)
 {
     using Point = std::pair<int, int>;
     std::stack<Point> stack;
@@ -24,22 +22,22 @@ void Maze::Generate(size_t x, size_t y)
 
     while (!stack.empty())
     {
-        int x = stack.top().first;
-        int y = stack.top().second;
+        int cx = stack.top().first;
+        int cy = stack.top().second;
         stack.pop();
         directions.Shuffle();
 
-        for (size_t i = 0; i < 4; ++i)
+        for (int i = 0; i < 4; ++i)
         {
-            int nx = x + dx[directions[i]] * 2;
-            int ny = y + dy[directions[i]] * 2;
+            int nx = cx + dx[directions[i]] * 2;
+            int ny = cy + dy[directions[i]] * 2;
 
             if (nx <= 0 || nx >= height - 1 || ny <= 0 || ny >= width - 1)
                 continue;
 
             if (data[nx + ny * height] != 0)
             {
-                Open((nx + x) / 2, (ny + y) / 2);
+                Open((nx + cx) / 2, (ny + cy) / 2);
                 Open(nx, ny);
                 stack.emplace(nx, ny);
             }
@@ -51,8 +49,8 @@ void Maze::Generate(size_t x, size_t y)
 
 void Maze::PlaceExit()
 {
-    size_t ex = height - 3;
-    size_t ey = width / 2;
+    const int ex = height - 3;
+    int ey = width / 2;
     while (!IsOpen(ex, ey))
     {
         ey += 1;
@@ -62,10 +60,10 @@ void Maze::PlaceExit()
 
 void Maze::Draw(const Console& console) const
 {
-    console.MoveCursor(0,0);
-    for(size_t x = 0; x < height - 1; x++)
+    console.MoveCursor(0, 0);
+    for (int x = 0; x < height - 1; x++)
     {
-        for(size_t y = 0; y < width - 1; y++)
+        for (int y = 0; y < width - 1; y++)
         {
             console.Write(At(x, y) == 1 ? '$' : ' ', Yellow);
         }

@@ -12,18 +12,18 @@ class Maze
         std::random_device rd;
         std::mt19937 gen = std::mt19937(rd());
         void Shuffle() { std::ranges::shuffle(data, gen); }
-        int& operator[](const size_t i) { return data[i]; }
+        int& operator[](const int i) { return data[i]; }
     } directions;
     
     std::vector<int> data;
-    size_t width;
-    size_t height;
-    void Open(const size_t x, const size_t y) { data[x + y * height] = 0; }
-    void Generate(size_t x, size_t y);
+    int width;
+    int height;
+    void Open(const int& x, const int& y) { data[x + y * height] = 0; }
+    void Generate(const int& x, const int& y);
 public:
-    Maze(size_t w, size_t h);
+    Maze(int w, int h);
     void PlaceExit();
-    bool IsOpen(const size_t x, const size_t y) const { return data[x + y * height] == 0; }
-    const int& At(const size_t x, const size_t y) const { return data[x + y * height]; }
+    bool IsOpen(const int& x, const int& y) const { return data[x + y * height] == 0; }
+    const int& At(const int& x, const int& y) const { return data[x + y * height]; }
     void Draw(const class Console& console) const;
 };

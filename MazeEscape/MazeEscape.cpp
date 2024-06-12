@@ -1,14 +1,13 @@
-#include <iostream>
-
 #include "Console.h"
 #include "Maze.h"
 #include "Actor.h"
+#include "AgentController.h"
 #include "PlayerController.h"
 
 int main(int argc, char* argv[])
 {
-    size_t width = 64;
-    size_t height = 24;
+    int width = 32;
+    int height = 16;
 
     Console console;
 
@@ -25,6 +24,9 @@ int main(int argc, char* argv[])
     {
         PlayerController::GetInput(console, player, maze);    
         player.Draw(console);
+
+        AgentController::Move(player.GetX(), player.GetY(), baba, maze);
+        baba.Draw(console);
     }
     
 }

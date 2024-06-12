@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AgentController.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeEscape.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="PlayerController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AgentController.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="Actor.h" />

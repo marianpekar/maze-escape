@@ -29,8 +29,8 @@ public:
     HANDLE hIn;
     Console();
     static void Write(const char& ch);
-    void MoveCursor(short x, short y) const;
+    void MoveCursor(const SHORT& x, const SHORT& y) const;
     void Write(const char& ch, FontColor color) const;
-    int GetKey() const;
+    const int& GetKey() const;
     static void Clear();
 };

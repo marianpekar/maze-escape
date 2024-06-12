@@ -13,7 +13,7 @@ void Console::Write(const char& ch)
     std::cout << ch;
 }
 
-void Console::MoveCursor(const short x, const short y) const
+void Console::MoveCursor(const SHORT& x, const SHORT& y) const
 {
     COORD coord{x, y};
     SetConsoleCursorPosition(hOut, coord);
@@ -26,7 +26,7 @@ void Console::Write(const char& ch, const FontColor color) const
     SetConsoleTextAttribute(hOut, White);
 }
 
-int Console::GetKey() const
+const int& Console::GetKey() const
 {
     INPUT_RECORD InputRecord;
     DWORD Events;

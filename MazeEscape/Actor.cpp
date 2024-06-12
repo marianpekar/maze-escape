@@ -1,12 +1,13 @@
 ﻿#include "Actor.h"
+
 #include "Console.h"
 
-void Actor::Move(const short x, const short y)
+void Actor::Move(const int& nx, const int& ny)
 {
     px = this->x;
     py = this->y;
-    this->x = x;
-    this->y = y;
+    this->x = nx;
+    this->y = ny;
 }
 
 void Actor::Draw(const Console& console) const

@@ -5,8 +5,8 @@
 
 void PlayerController::GetInput(const Console& console, Actor& player, const Maze& maze)
 {
-    static short nx = player.GetX();
-    static short ny = player.GetY();
+    static int16_t nx = player.GetX();
+    static int16_t ny = player.GetY();
 
     switch (console.GetKey())
     {
