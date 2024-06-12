@@ -26,4 +26,5 @@ public:
     bool IsOpen(const int& x, const int& y) const { return data[x + y * height] == 0; }
     const int& At(const int& x, const int& y) const { return data[x + y * height]; }
     void Draw(const class Console& console) const;
+    bool IsValid(const int& x, const int& y) const;
 };

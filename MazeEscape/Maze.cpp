@@ -32,7 +32,7 @@ void Maze::Generate(const int& x, const int& y)
             int nx = cx + dx[directions[i]] * 2;
             int ny = cy + dy[directions[i]] * 2;
 
-            if (nx <= 0 || nx >= height - 1 || ny <= 0 || ny >= width - 1)
+            if (!IsValid(nx, ny))
                 continue;
 
             if (data[nx + ny * height] != 0)
@@ -69,4 +69,9 @@ void Maze::Draw(const Console& console) const
         }
         Console::Write('\n');
     }
+}
+
+bool Maze::IsValid(const int& x, const int& y) const
+{
+    return x >= 0 && x < height - 1 && y >= 0 && y < width - 1;
 }
