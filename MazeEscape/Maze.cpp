@@ -13,13 +13,14 @@ void Maze::OpenRandom()
     static std::uniform_int_distribution dx(6, height - 6);
     static std::uniform_int_distribution dy(6, width - 6);
 
-    for (int i = 0; i < 15; i++)
+    for (int i = 0; i < 10; i++)
     {
         int rx = dx(gen);
         int ry = dy(gen);
         while (IsOpen(rx, ry))
         {
             rx -= 1;
+            ry += 1;
         }
         Open(rx, ry);
     }
@@ -83,7 +84,7 @@ void Maze::Draw(const Console& console) const
     {
         for (int y = 0; y < width - 1; y++)
         {
-            console.Write(At(x, y) == 1 ? '#' : ' ', Yellow);
+            console.Write(At(x, y) == 1 ? '#' : ' ', Green);
         }
         Console::Write('\n');
     }
