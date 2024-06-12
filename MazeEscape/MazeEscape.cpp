@@ -1,3 +1,5 @@
+#include <format>
+
 #include "Console.h"
 #include "Maze.h"
 #include "Actor.h"
@@ -24,6 +26,11 @@ int main(int argc, char* argv[])
 
         Actor baba(width - 3, 1, 'B', Red);
         baba.Draw(console);
+
+        console.MoveCursor((width / 2) - 12, height);
+        console.Write(std::format("Player: {}", scorePlayer).c_str(), Blue);
+        console.MoveCursor((width / 2) + 4, height);
+        console.Write(std::format("Baba: {}", scoreBaba).c_str(), Red);
 
         while (true)
         {

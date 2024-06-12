@@ -84,7 +84,7 @@ void Maze::Draw(const Console& console) const
     {
         for (int y = 0; y < width - 1; y++)
         {
-            console.Write(At(x, y) == 1 ? '#' : ' ', Green);
+            console.Write(At(x, y) == 1 ? "#" : " ", Green);
         }
         Console::Write('\n');
     }

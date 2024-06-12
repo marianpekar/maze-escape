@@ -26,6 +26,13 @@ void Console::Write(const char& ch, const FontColor color) const
     SetConsoleTextAttribute(hOut, White);
 }
 
+void Console::Write(const char* str, FontColor color) const
+{
+    SetConsoleTextAttribute(hOut, color);
+    std::cout << str;
+    SetConsoleTextAttribute(hOut, White);
+}
+
 const int& Console::GetKey() const
 {
     INPUT_RECORD InputRecord;

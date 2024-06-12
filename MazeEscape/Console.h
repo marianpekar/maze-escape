@@ -31,6 +31,7 @@ public:
     static void Write(const char& ch);
     void MoveCursor(const SHORT& x, const SHORT& y) const;
     void Write(const char& ch, FontColor color) const;
+    void Write(const char* str, FontColor color) const;
     const int& GetKey() const;
     static void Clear();
 };
