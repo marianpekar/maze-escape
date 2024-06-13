@@ -1,15 +1,11 @@
 ﻿#include "Maze.h"
 #include "Console.h"
-
 #include <stack>
-
-Maze::Maze(const int w, const int h) : data(std::vector(w * h, 1)), width(w), height(h)
-{
-    Generate(1, 1);
-}
 
 void Maze::Generate(const int& x, const int& y)
 {
+    data = std::vector(width * height, 1);
+
     using Point = std::pair<int, int>;
     std::stack<Point> stack;
 
@@ -53,7 +49,7 @@ void Maze::OpenRandom()
     static std::uniform_int_distribution dx(6, height - 6);
     static std::uniform_int_distribution dy(6, width - 6);
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 32; i++)
     {
         int rx = dx(gen);
         int ry = dy(gen);
@@ -77,14 +73,25 @@ void Maze::PlaceExit()
     Open(ex + 1, ey);
 }
 
-void Maze::Draw(const Console& console) const
+void Maze::Draw(const Console& console, const FractalBrownianMotion& fbm)
 {
     console.MoveCursor(0, 0);
     for (int x = 0; x < height - 1; x++)
     {
         for (int y = 0; y < width - 1; y++)
         {
-            console.Write(At(x, y) == 1 ? "#" : " ", Green);
+            const int at = At(x, y);
+            if (at <= 0)
+            {
+                Console::Write(' ');
+            }
+            else if (at == 1)
+            {
+                static constexpr FontColor colors[]{Gray, Green, Purple, Yellow, Aqua};
+                static constexpr float noiseScale = 0.0004f;
+                float sample = fbm.Sample(static_cast<float>(x) * noiseScale, static_cast<float>(y) * noiseScale / 2, 8, 32,0, 5);
+                console.Write('#', colors[static_cast<FontColor>(sample)]);
+            }
         }
         Console::Write('\n');
     }
