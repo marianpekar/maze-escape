@@ -9,6 +9,8 @@
 
 int main(int argc, char* argv[])
 {
+    Console::Clear();
+    
     static constexpr int width = 64;
     static constexpr int height = 24;
 
@@ -21,7 +23,10 @@ int main(int argc, char* argv[])
     std::mt19937 gen = std::mt19937(rd());
         
     Maze maze(width, height, gen);
+
+    PlayerController controller;
     Actor player(1, 1, '@', Blue);
+    
     Actor baba(width - 3, 1,'B', Red);
 
     FractalBrownianMotion fbm(gen);
@@ -55,7 +60,7 @@ int main(int argc, char* argv[])
                 break;
             }
             
-            PlayerController::GetInput(console, player, maze);    
+            controller.GetInput(console, player, maze);
             player.Draw(console);
         
             AgentController::Move(player.GetX(), player.GetY(), baba, maze);
@@ -63,6 +68,7 @@ int main(int argc, char* argv[])
         }
 
         player.Reset();
+        controller.Reset();
         baba.Reset();
     }
 }
