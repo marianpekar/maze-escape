@@ -49,7 +49,7 @@ void Maze::OpenRandom()
     static std::uniform_int_distribution dx(6, height - 6);
     static std::uniform_int_distribution dy(6, width - 6);
 
-    for (int i = 0; i < 32; i++)
+    for (int i = 0; i < 12; i++)
     {
         int rx = dx(gen);
         int ry = dy(gen);
