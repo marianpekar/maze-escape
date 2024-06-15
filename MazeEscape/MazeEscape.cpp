@@ -26,11 +26,16 @@ int main(int argc, char* argv[])
 
     Actor baba(cfg.mazeWidth - 3, 1, cfg.babaChar, static_cast<FontColor>(cfg.babaColor));
 
-    const FractalBrownianMotion* fbm = cfg.wallColor == -1 ? new FractalBrownianMotion(gen) : nullptr;
+    FractalBrownianMotion* fbm = cfg.wallColor == -1 ? new FractalBrownianMotion(gen) : nullptr;
 
     while (true)
     {
         Console::Clear();
+
+        if (fbm)
+        {
+            fbm->GeneratePermutations();
+        }
 
         maze.Generate(1, 1);
         maze.Draw(console, fbm);
