@@ -112,10 +112,13 @@ void Maze::Draw(const Console& console, const FractalBrownianMotion* fbm) const
                 FontColor color;
                 if (fbm != nullptr)
                 {
-                    static constexpr FontColor colors[]{Gray, Green, Purple, Yellow, Aqua};
-                    static constexpr float noiseScale = 0.0004f;
-                    float sample = fbm->Sample(static_cast<float>(x) * noiseScale, static_cast<float>(y) * noiseScale / 2, 8, 32, 0, 5);
-                    color = colors[static_cast<FontColor>(sample)];
+                    static int colors[]{cfg->noiseColor1, cfg->noiseColor2, cfg->noiseColor3, cfg->noiseColor4, cfg->noiseColor5};
+                    const float sample = fbm->Sample(
+                        static_cast<float>(x) * cfg->noiseScale,
+                        static_cast<float>(y) * cfg->noiseScale / 2,
+                        cfg->noiseOctaves,
+                        cfg->noisePersistence, 0, 5);
+                    color = static_cast<FontColor>(colors[static_cast<int>(sample)]);
                 }
                 else
                 {

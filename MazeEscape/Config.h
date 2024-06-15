@@ -17,4 +17,12 @@ struct Config
     char keyLeft = 'a';
     char keyRight = 'd';
     char forfeitKey = 'k';
+    int noiseColor1 = 8;
+    int noiseColor2 = 2;
+    int noiseColor3 = 5;
+    int noiseColor4 = 6;
+    int noiseColor5 = 3;
+    float noiseScale = 0.0004f;
+    int noiseOctaves = 8;
+    float noisePersistence = 32.f;
 };
