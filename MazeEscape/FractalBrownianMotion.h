@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include <tuple>
 
+#include <tuple>
 #include <random>
 #include <vector>
 
@@ -11,7 +11,7 @@ class FractalBrownianMotion
     std::mt19937 gen;
 
     static constexpr size_t perm_size = 512;
-    
+
     int perms[perm_size] = {};
 
     std::vector<Grad> grads = {
@@ -34,7 +34,10 @@ class FractalBrownianMotion
     float SamplePerlin(const float& x, const float& y) const;
 
 public:
-    FractalBrownianMotion(const std::mt19937& gen) : gen(gen) {}
+    FractalBrownianMotion(const std::mt19937& gen) : gen(gen)
+    {
+    }
+
     void GeneratePermutations();
     float Sample(const float& x, const float& y, const int& octaves, const float& persistence, const float& low, const float& high) const;
 };

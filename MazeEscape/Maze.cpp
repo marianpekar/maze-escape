@@ -1,10 +1,12 @@
 ﻿#include "Maze.h"
 #include "Console.h"
+#include "FractalBrownianMotion.h"
+#include "Config.h"
 #include <stack>
 
 void Maze::Generate(const int& x, const int& y)
 {
-    data = std::vector(width * height, 1);
+    data = std::vector(cfg->mazeWidth * cfg->mazeHeight, 1);
 
     using Point = std::pair<int, int>;
     std::stack<Point> stack;
@@ -18,8 +20,8 @@ void Maze::Generate(const int& x, const int& y)
 
     while (!stack.empty())
     {
-        int cx = stack.top().first;
-        int cy = stack.top().second;
+        const int cx = stack.top().first;
+        const int cy = stack.top().second;
         stack.pop();
         directions.Shuffle();
 
@@ -31,7 +33,7 @@ void Maze::Generate(const int& x, const int& y)
             if (!IsValid(nx, ny))
                 continue;
 
-            if (data[nx + ny * height] != 0)
+            if (data[nx + ny * cfg->mazeHeight] != 0)
             {
                 Open((nx + cx) / 2, (ny + cy) / 2);
                 Open(nx, ny);
@@ -44,28 +46,38 @@ void Maze::Generate(const int& x, const int& y)
     PlaceExit();
 }
 
+void Maze::Open(const int& x, const int& y)
+{
+    data[x + y * cfg->mazeHeight] = 0;
+}
+
 void Maze::OpenRandom()
 {
-    static std::uniform_int_distribution dx(6, height - 6);
-    static std::uniform_int_distribution dy(6, width - 6);
+    static std::uniform_int_distribution dx(6, cfg->mazeHeight - 6);
+    static std::uniform_int_distribution dy(6, cfg->mazeWidth - 6);
 
-    for (int i = 0; i < 12; i++)
+    for (int i = 0; i < cfg->wallHolesCount; i++)
     {
         int rx = dx(gen);
         int ry = dy(gen);
-        while (IsOpen(rx, ry))
+        if (IsOpen(rx, ry) || IsEdge(rx, ry))
         {
-            rx -= 1;
-            ry += 1;
+            i--;
+            continue;
         }
         Open(rx, ry);
     }
 }
 
+bool Maze::IsEdge(const int& x, const int& y) const
+{
+    return x == 0 || x == cfg->mazeHeight - 2 || y == 0 || y == cfg->mazeWidth - 1;
+}
+
 void Maze::PlaceExit()
 {
-    const int ex = height - 3;
-    int ey = width / 2;
+    const int ex = cfg->mazeHeight - 3;
+    int ey = cfg->mazeWidth / 2;
     while (!IsOpen(ex, ey))
     {
         ey += 1;
@@ -73,12 +85,22 @@ void Maze::PlaceExit()
     Open(ex + 1, ey);
 }
 
-void Maze::Draw(const Console& console, const FractalBrownianMotion& fbm)
+bool Maze::IsOpen(const int& x, const int& y) const
+{
+    return data[x + y * cfg->mazeHeight] < 1;
+}
+
+const int& Maze::At(const int& x, const int& y) const
+{
+    return data[x + y * cfg->mazeHeight];
+}
+
+void Maze::Draw(const Console& console, const FractalBrownianMotion* fbm) const
 {
     console.MoveCursor(0, 0);
-    for (int x = 0; x < height - 1; x++)
+    for (int x = 0; x < cfg->mazeHeight - 1; x++)
     {
-        for (int y = 0; y < width - 1; y++)
+        for (int y = 0; y < cfg->mazeWidth - 1; y++)
         {
             const int at = At(x, y);
             if (at <= 0)
@@ -87,10 +109,20 @@ void Maze::Draw(const Console& console, const FractalBrownianMotion& fbm)
             }
             else if (at == 1)
             {
-                static constexpr FontColor colors[]{Gray, Green, Purple, Yellow, Aqua};
-                static constexpr float noiseScale = 0.0004f;
-                float sample = fbm.Sample(static_cast<float>(x) * noiseScale, static_cast<float>(y) * noiseScale / 2, 8, 32,0, 5);
-                console.Write('#', colors[static_cast<FontColor>(sample)]);
+                FontColor color;
+                if (fbm != nullptr)
+                {
+                    static constexpr FontColor colors[]{Gray, Green, Purple, Yellow, Aqua};
+                    static constexpr float noiseScale = 0.0004f;
+                    float sample = fbm->Sample(static_cast<float>(x) * noiseScale, static_cast<float>(y) * noiseScale / 2, 8, 32, 0, 5);
+                    color = colors[static_cast<FontColor>(sample)];
+                }
+                else
+                {
+                    color = static_cast<FontColor>(cfg->wallColor);
+                }
+
+                console.Write(cfg->wallChar, color);
             }
         }
         Console::Write('\n');
@@ -99,5 +131,5 @@ void Maze::Draw(const Console& console, const FractalBrownianMotion& fbm)
 
 bool Maze::IsValid(const int& x, const int& y) const
 {
-    return x >= 0 && x < height - 1 && y >= 0 && y < width - 1;
+    return x >= 0 && x < cfg->mazeHeight - 1 && y >= 0 && y < cfg->mazeWidth - 1;
 }

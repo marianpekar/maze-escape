@@ -10,7 +10,7 @@ void AgentController::Move(const int& tx, const int& ty, Actor& actor, const Maz
 {
     if (actor.GetX() == tx && actor.GetY() == ty)
         return;
-    
+
     const int& sx = actor.GetX();
     const int& sy = actor.GetY();
 
@@ -19,7 +19,7 @@ void AgentController::Move(const int& tx, const int& ty, Actor& actor, const Maz
 
     std::vector<std::shared_ptr<Node>> open, closed;
 
-    std::shared_ptr<Node> startNode = std::make_shared<Node>(Node{sx, sy, 0, Heuristic(sx, sy, tx, ty), 0, nullptr});
+    const std::shared_ptr<Node> startNode = std::make_shared<Node>(Node{sx, sy, 0, Heuristic(sx, sy, tx, ty), 0, nullptr});
     open.push_back(startNode);
 
     while (!open.empty())

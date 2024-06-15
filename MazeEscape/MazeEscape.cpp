@@ -1,18 +1,15 @@
-#include <format>
-
+#include "Config.h"
 #include "Console.h"
 #include "Maze.h"
 #include "Actor.h"
 #include "AgentController.h"
 #include "FractalBrownianMotion.h"
 #include "PlayerController.h"
+#include <format>
 
 int main(int argc, char* argv[])
 {
-    Console::Clear();
-    
-    static constexpr int width = 64;
-    static constexpr int height = 24;
+    Config cfg;
 
     Console console;
 
@@ -20,49 +17,49 @@ int main(int argc, char* argv[])
     int scoreBaba = 0;
 
     std::random_device rd;
-    std::mt19937 gen = std::mt19937(rd());
-        
-    Maze maze(width, height, gen);
+    const std::mt19937 gen = std::mt19937(rd());
+
+    Maze maze(&cfg, gen);
 
     PlayerController controller;
-    Actor player(1, 1, '@', Blue);
-    
-    Actor baba(width - 3, 1,'B', Red);
+    Actor player(1, 1, cfg.playerChar, static_cast<FontColor>(cfg.playerColor));
 
-    FractalBrownianMotion fbm(gen);
-    
-    while(true)
+    Actor baba(cfg.mazeWidth - 3, 1, cfg.babaChar, static_cast<FontColor>(cfg.babaColor));
+
+    const FractalBrownianMotion* fbm = cfg.wallColor == -1 ? new FractalBrownianMotion(gen) : nullptr;
+
+    while (true)
     {
-        maze.Generate(1,1);
-        
-        fbm.GeneratePermutations();
+        Console::Clear();
+
+        maze.Generate(1, 1);
         maze.Draw(console, fbm);
-        
+
         player.Draw(console);
         baba.Draw(console);
 
-        console.MoveCursor((width / 2) - 12, height);
+        console.MoveCursor(cfg.mazeWidth / 2 - 12, cfg.mazeHeight);
         console.Write(std::format("Player: {}", scorePlayer).c_str(), Blue);
-        console.MoveCursor((width / 2) + 4, height);
+        console.MoveCursor(cfg.mazeWidth / 2 + 4, cfg.mazeHeight);
         console.Write(std::format("Baba: {}", scoreBaba).c_str(), Red);
 
         while (true)
         {
-            if (player.GetX() == baba.GetX() && player.GetY() == baba.GetY())
+            if (player.GetX() == baba.GetX() && player.GetY() == baba.GetY() || player.HasForfeit())
             {
                 scoreBaba++;
                 break;
             }
 
-            if (player.GetY() == height - 2)
+            if (player.GetY() == cfg.mazeHeight - 2)
             {
                 scorePlayer++;
                 break;
             }
-            
-            controller.GetInput(console, player, maze);
+
+            controller.Move(console, player, maze, cfg);
             player.Draw(console);
-        
+
             AgentController::Move(player.GetX(), player.GetY(), baba, maze);
             baba.Draw(console);
         }

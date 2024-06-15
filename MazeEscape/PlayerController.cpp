@@ -2,27 +2,34 @@
 #include "Actor.h"
 #include "Maze.h"
 #include "Console.h"
+#include "Config.h"
 
-void PlayerController::GetInput(const Console& console, Actor& player, const Maze& maze)
+void PlayerController::Move(const Console& console, Actor& player, const Maze& maze, const Config& cfg)
 {
     nx = player.GetX();
     ny = player.GetY();
 
-    switch (console.GetKey())
+    int key = console.GetKey();
+    if (key == static_cast<int>(cfg.keyUp))
     {
-    case 119:
         ny--;
-        break;
-    case 115:
+    }
+    else if (key == static_cast<int>(cfg.keyDown))
+    {
         ny++;
-        break;
-    case 97:
+    }
+    else if (key == static_cast<int>(cfg.keyLeft))
+    {
         nx--;
-        break;
-    case 100:
+    }
+    else if (key == static_cast<int>(cfg.keyRight))
+    {
         nx++;
-        break;
-    default: ;
+    }
+    else if (key == static_cast<int>(cfg.forfeitKey))
+    {
+        player.Forfeit();
+        return;
     }
 
     if (maze.IsOpen(ny, nx))
