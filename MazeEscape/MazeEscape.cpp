@@ -10,7 +10,8 @@
 int main(int argc, char* argv[])
 {
     Config cfg;
-
+    cfg.Parse(argc, argv);
+        
     Console console;
 
     int scorePlayer = 0;

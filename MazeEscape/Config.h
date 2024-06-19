@@ -3,6 +3,7 @@
 struct Config
 {
     Config() = default;
+    void Parse(int argc, char* argv[]);
     int mazeWidth = 64;
     int mazeHeight = 24;
     char wallChar = '#';
