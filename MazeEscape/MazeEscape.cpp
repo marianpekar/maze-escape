@@ -45,9 +45,9 @@ int main(int argc, char* argv[])
         baba.Draw(console);
 
         console.MoveCursor(cfg.mazeWidth / 2 - 12, cfg.mazeHeight);
-        console.Write(std::format("Player: {}", scorePlayer).c_str(), Blue);
+        console.Write(std::format("Player: {}", scorePlayer).c_str(), static_cast<FontColor>(cfg.playerColor));
         console.MoveCursor(cfg.mazeWidth / 2 + 4, cfg.mazeHeight);
-        console.Write(std::format("Baba: {}", scoreBaba).c_str(), Red);
+        console.Write(std::format("Baba: {}", scoreBaba).c_str(), static_cast<FontColor>(cfg.babaColor));
 
         while (true)
         {
