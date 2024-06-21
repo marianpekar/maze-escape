@@ -4,7 +4,7 @@
 
 When you move, baba moves. Escape from maze before baba finds you.
 
-A minimalistic console game combines recursive backtracker, A* pathfinding and fractal brownian motion.
+A minimalistic console game combines recursive backtracker, A* pathfinding and fractal Brownian motion.
 
 ## Default Controls
 
@@ -76,7 +76,7 @@ _*) only relevant when WallColor (wco) is set to -1 (noise)_
 
 _*) -1 is only relevant for WallColor (wco) parameter_
 
-These are foreground color codes on default background, you can change background color too with numbers higher than 15. The formula is `B * 16 + F` where B is color code for background color and F is for foreground color.
+These are foreground color codes on default background, you can change background color too with numbers higher than 15. The formula is `B * 16 + F` where B is color code for background color and F is for foreground color. A few examples:
 
 | Foreground/Background | Code |
 |-|-|
