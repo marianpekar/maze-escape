@@ -8,27 +8,24 @@ void Maze::Generate(const int& x, const int& y)
 {
     data = std::vector(cfg->mazeWidth * cfg->mazeHeight, 1);
 
-    using Point = std::pair<int, int>;
     std::stack<Point> stack;
 
     Open(x, y);
 
     stack.emplace(x, y);
 
-    static constexpr int dx[] = {0, 1, 0, -1};
-    static constexpr int dy[] = {-1, 0, 1, 0};
-
     while (!stack.empty())
     {
         const int cx = stack.top().first;
         const int cy = stack.top().second;
         stack.pop();
+
         directions.Shuffle();
 
         for (int i = 0; i < 4; ++i)
         {
-            int nx = cx + dx[directions[i]] * 2;
-            int ny = cy + dy[directions[i]] * 2;
+            int nx = cx + directions[i].first * 2;
+            int ny = cy + directions[i].second * 2;
 
             if (!IsValid(nx, ny))
                 continue;

@@ -5,9 +5,11 @@
 
 class Maze
 {
+    using Point = std::pair<int, int>;
+
     class Directions
     {
-        std::vector<int> data = {0, 1, 2, 3};
+        std::vector<Point> data = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     public:
         Directions(const std::mt19937& gen) : gen(gen)
@@ -16,7 +18,7 @@ class Maze
 
         std::mt19937 gen;
         void Shuffle() { std::ranges::shuffle(data, gen); }
-        int& operator[](const int i) { return data[i]; }
+        Point& operator[](const int i) { return data[i]; }
     } directions = Directions(gen);
 
     std::mt19937 gen;
