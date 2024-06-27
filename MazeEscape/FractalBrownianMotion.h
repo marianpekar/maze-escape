@@ -26,12 +26,12 @@ class FractalBrownianMotion
     };
 
 
-    static float Dot(const Grad& grad, const float& x, const float& y);
-    static float Lerp(const float& a, const float& b, const float& t);
-    static float Fade(const float& t);
-    static float Remap(const float& val, const float& min1, const float& max1, const float& min2, const float& max2);
+    static float Dot(const Grad& grad, float x, float y);
+    static float Lerp(float a, float b, float t);
+    static float Fade(float t);
+    static float Remap(float val, float min1, float max1, float min2, float max2);
 
-    float SamplePerlin(const float& x, const float& y) const;
+    float SamplePerlin(float x, float y) const;
 
 public:
     FractalBrownianMotion(const std::mt19937& gen) : gen(gen)
@@ -39,5 +39,5 @@ public:
     }
 
     void GeneratePermutations();
-    float Sample(const float& x, const float& y, const int& octaves, const float& persistence, const float& low, const float& high) const;
+    float Sample(float x, float y, int octaves, float persistence, float low, float high) const;
 };

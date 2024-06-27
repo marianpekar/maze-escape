@@ -10,8 +10,8 @@ void FractalBrownianMotion::GeneratePermutations()
     }
 }
 
-float FractalBrownianMotion::Sample(const float& x, const float& y, const int& octaves, const float& persistence,
-                                    const float& low, const float& high) const
+float FractalBrownianMotion::Sample(const float x, const float y, const int octaves, const float persistence,
+                                    const float low, const float high) const
 {
     float sample = 0;
     float frequency = 1;
@@ -30,7 +30,7 @@ float FractalBrownianMotion::Sample(const float& x, const float& y, const int& o
     return Remap(sample, -0.33f, 0.33f, low, high);
 }
 
-float FractalBrownianMotion::SamplePerlin(const float& x, const float& y) const
+float FractalBrownianMotion::SamplePerlin(const float x, const float y) const
 {
     int a = floor(x);
     int b = floor(y);
@@ -60,23 +60,23 @@ float FractalBrownianMotion::SamplePerlin(const float& x, const float& y) const
     return Lerp(x1, x2, v);
 }
 
-float FractalBrownianMotion::Dot(const Grad& grad, const float& x, const float& y)
+float FractalBrownianMotion::Dot(const Grad& grad, const float x, const float y)
 {
     return std::get<0>(grad) * x + std::get<1>(grad) * y;
 }
 
-float FractalBrownianMotion::Lerp(const float& a, const float& b, const float& t)
+float FractalBrownianMotion::Lerp(const float a, const float b, const float t)
 {
     return (1.0f - t) * a + t * b;
 }
 
-float FractalBrownianMotion::Fade(const float& t)
+float FractalBrownianMotion::Fade(const float t)
 {
     return t * t * t * (t * (t * 6.0f - 15.0f) + 10.0f);
 }
 
-float FractalBrownianMotion::Remap(const float& val, const float& min1, const float& max1,
-                                   const float& min2, const float& max2)
+float FractalBrownianMotion::Remap(const float val, const float min1, const float max1,
+                                   const float min2, const float max2)
 {
     return min2 + (val - min1) * (max2 - min2) / (max1 - min1);
 }

@@ -4,7 +4,7 @@
 #include "Config.h"
 #include <stack>
 
-void Maze::Generate(const int& x, const int& y)
+void Maze::Generate(int x, int y)
 {
     data = std::vector(cfg->mazeWidth * cfg->mazeHeight, 1);
 
@@ -43,7 +43,7 @@ void Maze::Generate(const int& x, const int& y)
     PlaceExit();
 }
 
-void Maze::Open(const int& x, const int& y)
+void Maze::Open(const int x, const int y)
 {
     data[x + y * cfg->mazeHeight] = 0;
 }
@@ -66,7 +66,7 @@ void Maze::OpenRandom()
     }
 }
 
-bool Maze::IsEdge(const int& x, const int& y) const
+bool Maze::IsEdge(const int x, const int y) const
 {
     return x == 0 || x == cfg->mazeHeight - 2 || y == 0 || y == cfg->mazeWidth - 1;
 }
@@ -82,12 +82,12 @@ void Maze::PlaceExit()
     Open(ex + 1, ey);
 }
 
-bool Maze::IsOpen(const int& x, const int& y) const
+bool Maze::IsOpen(const int x, const int y) const
 {
     return data[x + y * cfg->mazeHeight] < 1;
 }
 
-const int& Maze::At(const int& x, const int& y) const
+const int& Maze::At(const int x, const int y) const
 {
     return data[x + y * cfg->mazeHeight];
 }
@@ -129,7 +129,7 @@ void Maze::Draw(const Console& console, const FractalBrownianMotion* fbm) const
     }
 }
 
-bool Maze::IsValid(const int& x, const int& y) const
+bool Maze::IsValid(const int x, const int y) const
 {
     return x >= 0 && x < cfg->mazeHeight - 1 && y >= 0 && y < cfg->mazeWidth - 1;
 }

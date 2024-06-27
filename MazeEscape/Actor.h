@@ -8,10 +8,10 @@ class Actor
     bool forfeit;
 
 public:
-    Actor(const int& x, const int& y, const char& avatar, const int& color);
-    const int& GetX() const { return x; }
-    const int& GetY() const { return y; }
-    void Move(const int& nx, const int& ny);
+    Actor(int x, int y, char avatar, int color);
+    int GetX() const { return x; }
+    int GetY() const { return y; }
+    void Move(int nx, int ny);
     void Draw(const class Console& console) const;
     void Reset();
     bool HasForfeit() const;

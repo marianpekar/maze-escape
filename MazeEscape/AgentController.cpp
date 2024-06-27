@@ -6,7 +6,7 @@
 #include <cmath>
 #include <vector>
 
-void AgentController::Move(const int& tx, const int& ty, Actor& actor, const Maze& maze)
+void AgentController::Move(const int tx, const int ty, Actor& actor, const Maze& maze)
 {
     if (actor.GetX() == tx && actor.GetY() == ty)
         return;
@@ -66,7 +66,7 @@ void AgentController::Move(const int& tx, const int& ty, Actor& actor, const Maz
     }
 }
 
-int AgentController::Heuristic(const int& sx, const int& sy, const int& tx, const int& ty)
+int AgentController::Heuristic(const int sx, const int sy, const int tx, const int ty)
 {
     return std::abs(sx - tx) + std::abs(sy - ty);
 }

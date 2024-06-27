@@ -2,12 +2,12 @@
 
 #include "Console.h"
 
-Actor::Actor(const int& x, const int& y, const char& avatar, const int& color) :
-    x(x), y(y), px(x), py(y), ix(x), iy(y), avatar(avatar), color(color)
+Actor::Actor(const int x, const int y, const char avatar, const int color) :
+    x(x), y(y), px(x), py(y), ix(x), iy(y), avatar(avatar), color(color), forfeit(false)
 {
 }
 
-void Actor::Move(const int& nx, const int& ny)
+void Actor::Move(const int nx, const int ny)
 {
     px = this->x;
     py = this->y;

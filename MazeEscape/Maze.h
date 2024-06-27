@@ -24,8 +24,8 @@ class Maze
     std::mt19937 gen;
     std::vector<int> data;
     const struct Config* cfg;
-    void Open(const int& x, const int& y);
-    bool IsEdge(const int& x, const int& y) const;
+    void Open(int x, int y);
+    bool IsEdge(int x, int y) const;
     void OpenRandom();
 
 public:
@@ -33,10 +33,10 @@ public:
     {
     }
 
-    void Generate(const int& x, const int& y);
+    void Generate(int x, int y);
     void PlaceExit();
-    bool IsOpen(const int& x, const int& y) const;
-    const int& At(const int& x, const int& y) const;
+    bool IsOpen(int x, int y) const;
+    const int& At(int x, int y) const;
     void Draw(const class Console& console, const class FractalBrownianMotion* fbm) const;
-    bool IsValid(const int& x, const int& y) const;
+    bool IsValid(int x, int y) const;
 };
