@@ -26,4 +26,6 @@ struct Config
     float noiseScale = 0.0004f;
     int noiseOctaves = 8;
     float noisePersistence = 32.f;
+    bool isWidthOdd = false;
+    bool isHeightOdd = false;
 };

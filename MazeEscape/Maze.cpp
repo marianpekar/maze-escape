@@ -50,8 +50,8 @@ void Maze::Open(const int x, const int y)
 
 void Maze::OpenRandom()
 {
-    static std::uniform_int_distribution dx(6, cfg->mazeHeight - 6);
-    static std::uniform_int_distribution dy(6, cfg->mazeWidth - 6);
+    static std::uniform_int_distribution dx(2, cfg->mazeHeight - 3);
+    static std::uniform_int_distribution dy(2, cfg->mazeWidth - 3);
 
     for (int i = 0; i < cfg->wallHolesCount; i++)
     {
@@ -68,12 +68,12 @@ void Maze::OpenRandom()
 
 bool Maze::IsEdge(const int x, const int y) const
 {
-    return x == 0 || x == cfg->mazeHeight - 2 || y == 0 || y == cfg->mazeWidth - 1;
+    return x == 0 || x == cfg->mazeHeight - (cfg->isHeightOdd ? 2 : 3) || y == 0 || y == cfg->mazeWidth - (cfg->isWidthOdd ? 2 : 3);
 }
 
 void Maze::PlaceExit()
 {
-    const int ex = cfg->mazeHeight - 3;
+    const int ex = cfg->mazeHeight - (cfg->isHeightOdd ? 2 : 3);
     int ey = cfg->mazeWidth / 2;
     while (!IsOpen(ex, ey))
     {
@@ -95,9 +95,9 @@ const int& Maze::At(const int x, const int y) const
 void Maze::Draw(const Console& console, const FractalBrownianMotion* fbm) const
 {
     console.MoveCursor(0, 0);
-    for (int x = 0; x < cfg->mazeHeight - 1; x++)
+    for (int x = 0; x < cfg->mazeHeight - (cfg->isHeightOdd ? 0 : 1); x++)
     {
-        for (int y = 0; y < cfg->mazeWidth - 1; y++)
+        for (int y = 0; y < cfg->mazeWidth - (cfg->isWidthOdd ? 0 : 1); y++)
         {
             const int at = At(x, y);
             if (at <= 0)

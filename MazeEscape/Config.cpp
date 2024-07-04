@@ -34,5 +34,8 @@ void Config::Parse(int argc, char* argv[])
         else if (key == "noisescale" || key == "nscl") noiseScale = std::stof(val);
         else if (key == "noiseoctaves" || key == "noct") noiseOctaves = std::stoi(val);
         else if (key == "noisepersistence" || key == "nper") noisePersistence = std::stof(val);
+
+        isWidthOdd = mazeWidth % 2 != 0;
+        isHeightOdd = mazeHeight % 2 != 0;
     }
 }

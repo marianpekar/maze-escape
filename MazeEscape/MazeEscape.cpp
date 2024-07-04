@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 {
     Config cfg;
     cfg.Parse(argc, argv);
-        
+    
     Console console;
 
     int scorePlayer = 0;
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
                 break;
             }
 
-            if (player.GetY() == cfg.mazeHeight - 2)
+            if (player.GetY() == cfg.mazeHeight - (cfg.isHeightOdd ? 1 : 2))
             {
                 scorePlayer++;
                 break;
